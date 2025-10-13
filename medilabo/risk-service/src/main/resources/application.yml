@@ -4,6 +4,9 @@ server:
 spring:
   application:
     name: risk-service
+    main:
+      allow-bean-definition-overriding: true  # sécurité
+
 
 patient:
   service:
@@ -12,7 +15,8 @@ note:
   service:
     url: http://localhost:8082
 
+# Feign + logs
 logging:
   level:
     com.medilabo.risk: DEBUG
-    org.springframework.cloud.openfeign: INFO
+    org.springframework.cloud.openfeign: DEBUG
