@@ -1,0 +1,11 @@
+C:\Users\sanch\Documents\Formation OC\Projets\medilabo_project\medilabo\risk-service\src\main\java\com\medilabo\risk\client\NoteClient.java
+C:\Users\sanch\Documents\Formation OC\Projets\medilabo_project\medilabo\risk-service\src\main\java\com\medilabo\risk\client\PatientClient.java
+C:\Users\sanch\Documents\Formation OC\Projets\medilabo_project\medilabo\risk-service\src\main\java\com\medilabo\risk\config\FeignConfig.java
+C:\Users\sanch\Documents\Formation OC\Projets\medilabo_project\medilabo\risk-service\src\main\java\com\medilabo\risk\config\SecurityConfig.java
+C:\Users\sanch\Documents\Formation OC\Projets\medilabo_project\medilabo\risk-service\src\main\java\com\medilabo\risk\controller\RiskController.java
+C:\Users\sanch\Documents\Formation OC\Projets\medilabo_project\medilabo\risk-service\src\main\java\com\medilabo\risk\dto\AssessmentDto.java
+C:\Users\sanch\Documents\Formation OC\Projets\medilabo_project\medilabo\risk-service\src\main\java\com\medilabo\risk\dto\NoteInfo.java
+C:\Users\sanch\Documents\Formation OC\Projets\medilabo_project\medilabo\risk-service\src\main\java\com\medilabo\risk\dto\PatientInfo.java
+C:\Users\sanch\Documents\Formation OC\Projets\medilabo_project\medilabo\risk-service\src\main\java\com\medilabo\risk\model\RiskLevel.java
+C:\Users\sanch\Documents\Formation OC\Projets\medilabo_project\medilabo\risk-service\src\main\java\com\medilabo\risk\RiskServiceApplication.java
+C:\Users\sanch\Documents\Formation OC\Projets\medilabo_project\medilabo\risk-service\src\main\java\com\medilabo\risk\service\AssessmentService.java

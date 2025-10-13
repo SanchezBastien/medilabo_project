@@ -1,0 +1,11 @@
+com\medilabo\risk\client\PatientClient.class
+com\medilabo\risk\controller\RiskController.class
+com\medilabo\risk\dto\PatientInfo.class
+com\medilabo\risk\config\SecurityConfig.class
+com\medilabo\risk\dto\AssessmentDto.class
+com\medilabo\risk\RiskServiceApplication.class
+com\medilabo\risk\dto\NoteInfo.class
+com\medilabo\risk\config\FeignConfig.class
+com\medilabo\risk\model\RiskLevel.class
+com\medilabo\risk\service\AssessmentService.class
+com\medilabo\risk\client\NoteClient.class

@@ -1,0 +1,18 @@
+server:
+  port: 8083
+
+spring:
+  application:
+    name: risk-service
+
+patient:
+  service:
+    url: http://localhost:8081
+note:
+  service:
+    url: http://localhost:8082
+
+logging:
+  level:
+    com.medilabo.risk: DEBUG
+    org.springframework.cloud.openfeign: INFO
