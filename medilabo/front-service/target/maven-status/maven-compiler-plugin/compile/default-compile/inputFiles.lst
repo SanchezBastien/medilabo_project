@@ -1,11 +1,11 @@
-C:\Users\sanch\Downloads\medilabo_project\medilabo\front-service\src\main\java\com\medilabo\front\client\GatewayClient.java
-C:\Users\sanch\Downloads\medilabo_project\medilabo\front-service\src\main\java\com\medilabo\front\config\RestTemplateConfig.java
-C:\Users\sanch\Downloads\medilabo_project\medilabo\front-service\src\main\java\com\medilabo\front\config\SecurityConfig.java
-C:\Users\sanch\Downloads\medilabo_project\medilabo\front-service\src\main\java\com\medilabo\front\controller\FrontController.java
-C:\Users\sanch\Downloads\medilabo_project\medilabo\front-service\src\main\java\com\medilabo\front\dto\AssessmentDto.java
-C:\Users\sanch\Downloads\medilabo_project\medilabo\front-service\src\main\java\com\medilabo\front\dto\NoteDto.java
-C:\Users\sanch\Downloads\medilabo_project\medilabo\front-service\src\main\java\com\medilabo\front\dto\PatientDto.java
-C:\Users\sanch\Downloads\medilabo_project\medilabo\front-service\src\main\java\com\medilabo\front\form\NoteForm.java
-C:\Users\sanch\Downloads\medilabo_project\medilabo\front-service\src\main\java\com\medilabo\front\form\PatientForm.java
-C:\Users\sanch\Downloads\medilabo_project\medilabo\front-service\src\main\java\com\medilabo\front\FrontServiceApplication.java
-C:\Users\sanch\Downloads\medilabo_project\medilabo\front-service\src\main\java\com\medilabo\front\model\RiskLevel.java
+C:\Users\sanch\Documents\Formation OC\Projets\medilabo_project\medilabo\front-service\src\main\java\com\medilabo\front\client\GatewayClient.java
+C:\Users\sanch\Documents\Formation OC\Projets\medilabo_project\medilabo\front-service\src\main\java\com\medilabo\front\config\RestTemplateConfig.java
+C:\Users\sanch\Documents\Formation OC\Projets\medilabo_project\medilabo\front-service\src\main\java\com\medilabo\front\config\SecurityConfig.java
+C:\Users\sanch\Documents\Formation OC\Projets\medilabo_project\medilabo\front-service\src\main\java\com\medilabo\front\controller\FrontController.java
+C:\Users\sanch\Documents\Formation OC\Projets\medilabo_project\medilabo\front-service\src\main\java\com\medilabo\front\dto\AssessmentDto.java
+C:\Users\sanch\Documents\Formation OC\Projets\medilabo_project\medilabo\front-service\src\main\java\com\medilabo\front\dto\NoteDto.java
+C:\Users\sanch\Documents\Formation OC\Projets\medilabo_project\medilabo\front-service\src\main\java\com\medilabo\front\dto\PatientDto.java
+C:\Users\sanch\Documents\Formation OC\Projets\medilabo_project\medilabo\front-service\src\main\java\com\medilabo\front\form\NoteForm.java
+C:\Users\sanch\Documents\Formation OC\Projets\medilabo_project\medilabo\front-service\src\main\java\com\medilabo\front\form\PatientForm.java
+C:\Users\sanch\Documents\Formation OC\Projets\medilabo_project\medilabo\front-service\src\main\java\com\medilabo\front\FrontServiceApplication.java
+C:\Users\sanch\Documents\Formation OC\Projets\medilabo_project\medilabo\front-service\src\main\java\com\medilabo\front\model\RiskLevel.java

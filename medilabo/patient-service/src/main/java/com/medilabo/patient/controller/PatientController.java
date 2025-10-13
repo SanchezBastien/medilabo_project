@@ -48,7 +48,7 @@ public class PatientController {
      * @return the patient if found or 404 otherwise
      */
     @GetMapping("/{id}")
-    public ResponseEntity<PatientDto> getPatient(@PathVariable Long id) {
+    public ResponseEntity<PatientDto> getPatient(@PathVariable("id") Long id) {
         Optional<Patient> patientOpt = patientService.findById(id);
         return patientOpt
                 .map(p -> ResponseEntity.ok(PatientMapper.toDto(p)))

@@ -34,7 +34,7 @@ public class NoteController {
      * @return list of notes
      */
     @GetMapping("/{patientId}")
-    public ResponseEntity<List<NoteDto>> getNotesByPatient(@PathVariable Long patientId) {
+    public ResponseEntity<List<NoteDto>> getNotesByPatient(@PathVariable("patientId") Long patientId) {
         List<NoteDto> dtos = noteService.findByPatientId(patientId).stream()
                 .map(NoteMapper::toDto)
                 .collect(Collectors.toList());
