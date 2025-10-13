@@ -1,0 +1,73 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!--
+      Root aggregation POM for the MédiLabo microservices suite.
+      This parent project does not produce an artefact itself but defines common
+      configuration such as the Java version, Spring Boot version and Spring
+      Cloud release train. Each child module inherits from this POM.  The
+      project has been intentionally kept lean and understandable: no plugins
+      other than those required to build Spring Boot applications are added
+      here.  See the individual module poms for their own dependencies and
+      build configuration.
+    -->
+
+    <groupId>com.medilabo</groupId>
+    <artifactId>medilabo</artifactId>
+    <version>0.1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <name>MédiLabo Solution</name>
+    <description>Multi‑module microservice architecture for diabetes risk assessment</description>
+
+    <properties>
+        <!-- Target a recent Java version. Java 21 brings language and JVM
+             improvements such as virtual threads and structured concurrency. -->
+        <java.version>21</java.version>
+        <!-- Pin the Spring Boot release to the most recent stable version
+             available at the time of writing (September 2025). Using a
+             property here avoids repeating the version in every child module. -->
+        <spring-boot.version>3.5.6</spring-boot.version>
+        <!-- Use the Spring Cloud release train aligned with Spring Boot 3.5.x.  The
+             Northfields release train (2025.0.0) was announced GA in May 2025.
+             See: https://spring.io/blog/2025/05/29/spring-cloud-2025-0-0-is-abvailable/ -->
+        <spring-cloud.version>2025.0.0</spring-cloud.version>
+    </properties>
+
+    <!-- Import Spring Boot and Spring Cloud dependency management.  Importing
+         these BOMs ensures that all Spring modules share compatible versions
+         without having to declare them explicitly in each module. -->
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <!-- List of submodules.  Maven will build each module in the given order. -->
+    <modules>
+        <module>patient-service</module>
+        <module>note-service</module>
+        <module>risk-service</module>
+        <module>gateway-service</module>
+        <module>front-service</module>
+    </modules>
+
+    <!-- A common Maven wrapper plugin definition could go here if needed.  Each
+         submodule will define its own spring-boot-maven-plugin to avoid
+         packaging conflicts in multi‑module builds. -->
+</project>

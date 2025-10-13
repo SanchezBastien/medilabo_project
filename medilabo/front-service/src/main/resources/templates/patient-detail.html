@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Détails patient</title>
+</head>
+<body>
+<h1 th:text="'Détails du patient ' + ${patient.firstName} + ' ' + ${patient.lastName}"></h1>
+<p><a th:href="@{/patients}">Retour à la liste</a></p>
+
+<h2>Informations</h2>
+<form th:action="@{/patients/{id}/update(id=${patient.id})}" th:object="${patientForm}" method="post">
+    <div>
+        <label>Nom:</label>
+        <input type="text" th:field="*{lastName}"/>
+        <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></span>
+    </div>
+    <div>
+        <label>Prénom:</label>
+        <input type="text" th:field="*{firstName}"/>
+        <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></span>
+    </div>
+    <div>
+        <label>Date de naissance:</label>
+        <input type="date" th:field="*{birthDate}"/>
+        <span th:if="${#fields.hasErrors('birthDate')}" th:errors="*{birthDate}"></span>
+    </div>
+    <div>
+        <label>Sexe (M/F):</label>
+        <input type="text" th:field="*{gender}"/>
+        <span th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}"></span>
+    </div>
+    <div>
+        <label>Adresse:</label>
+        <input type="text" th:field="*{address}"/>
+    </div>
+    <div>
+        <label>Téléphone:</label>
+        <input type="text" th:field="*{phone}"/>
+    </div>
+    <button type="submit">Mettre à jour</button>
+</form>
+
+<h2>Évaluation du risque</h2>
+<div th:if="${assessment != null}">
+    <p><strong>Âge:</strong> <span th:text="${assessment.age}"></span></p>
+    <p><strong>Nombre de déclencheurs:</strong> <span th:text="${assessment.triggerCount}"></span></p>
+    <p><strong>Niveau de risque:</strong> <span th:text="${assessment.riskLevel}"></span></p>
+</div>
+<div th:if="${assessment == null}">
+    <p>Impossible de calculer le risque pour ce patient.</p>
+</div>
+
+<h2>Notes</h2>
+<ul>
+    <li th:each="note : ${notes}" th:text="${note.note}"></li>
+</ul>
+
+<h3>Ajouter une note</h3>
+<form th:action="@{/patients/{id}/notes(id=${patient.id})}" th:object="${noteForm}" method="post">
+    <div>
+        <textarea th:field="*{note}" rows="4" cols="50"></textarea>
+        <span th:if="${#fields.hasErrors('note')}" th:errors="*{note}"></span>
+    </div>
+    <div>
+        <button type="submit">Enregistrer la note</button>
+    </div>
+</form>
+</body>
+</html>

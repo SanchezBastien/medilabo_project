@@ -1,0 +1,90 @@
+package com.medilabo.front.client;
+
+import com.medilabo.front.dto.AssessmentDto;
+import com.medilabo.front.dto.NoteDto;
+import com.medilabo.front.dto.PatientDto;
+import com.medilabo.front.form.NoteForm;
+import com.medilabo.front.form.PatientForm;
+import jakarta.validation.Valid;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestClientException;
+import org.springframework.web.client.RestTemplate;
+
+import java.util.Collections;
+import java.util.List;
+
+/**
+ * Simple client encapsulating HTTP calls to the gateway.  It uses
+ * {@link RestTemplate} under the hood and serializes JSON payloads.
+ */
+@Service
+public class GatewayClient {
+    private final RestTemplate restTemplate;
+    private final String baseUrl = "http://localhost:8080";
+
+    public GatewayClient(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+    }
+
+    public List<PatientDto> getPatients() {
+        try {
+            return restTemplate.exchange(
+                    baseUrl + "/api/patients",
+                    HttpMethod.GET,
+                    null,
+                    new ParameterizedTypeReference<List<PatientDto>>() {
+                    }
+            ).getBody();
+        } catch (RestClientException e) {
+            return Collections.emptyList();
+        }
+    }
+
+    public PatientDto getPatient(Long id) {
+        return restTemplate.getForObject(baseUrl + "/api/patients/" + id, PatientDto.class);
+    }
+
+    public PatientDto createPatient(@Valid PatientForm form) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<PatientForm> request = new HttpEntity<>(form, headers);
+        return restTemplate.postForObject(baseUrl + "/api/patients", request, PatientDto.class);
+    }
+
+    public PatientDto updatePatient(Long id, @Valid PatientForm form) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<PatientForm> request = new HttpEntity<>(form, headers);
+        return restTemplate.exchange(baseUrl + "/api/patients/" + id, HttpMethod.PUT, request, PatientDto.class).getBody();
+    }
+
+    public List<NoteDto> getNotes(Long patientId) {
+        try {
+            return restTemplate.exchange(
+                    baseUrl + "/api/notes/" + patientId,
+                    HttpMethod.GET,
+                    null,
+                    new ParameterizedTypeReference<List<NoteDto>>() {
+                    }
+            ).getBody();
+        } catch (RestClientException e) {
+            return Collections.emptyList();
+        }
+    }
+
+    public NoteDto createNote(@Valid NoteForm form) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<NoteForm> request = new HttpEntity<>(form, headers);
+        return restTemplate.postForObject(baseUrl + "/api/notes", request, NoteDto.class);
+    }
+
+    public AssessmentDto getAssessment(Long patientId) {
+        return restTemplate.getForObject(baseUrl + "/api/assessment/" + patientId, AssessmentDto.class);
+    }
+}

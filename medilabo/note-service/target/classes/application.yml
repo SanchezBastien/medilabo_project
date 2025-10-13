@@ -1,0 +1,14 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    name: note-service
+  data:
+    mongodb:
+      uri: mongodb+srv://sanchezbastien34_db_user:c5pS121OBQ243JdH@cluster0.vig3taf.mongodb.net/notesdb?retryWrites=true&w=majority&appName=Cluster0
+
+logging:
+  level:
+    org.springframework.web: INFO
+    com.medilabo.note: DEBUG
