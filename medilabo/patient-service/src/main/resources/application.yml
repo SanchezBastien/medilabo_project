@@ -2,31 +2,20 @@ server:
   port: 8081
 
 spring:
-  application:
-    name: patient-service
-
   datasource:
-    url: jdbc:h2:mem:patientdb
+    url: jdbc:h2:file:./data/patientdb;AUTO_SERVER=TRUE;DB_CLOSE_DELAY=-1
     driverClassName: org.h2.Driver
     username: sa
     password:
-
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    defer-datasource-initialization: true
   h2:
     console:
       enabled: true
       path: /h2-console
-
-  jpa:
-    hibernate:
-      ddl-auto: update  # Génère automatiquement les tables si elles n'existent pas
-    defer-datasource-initialization: true # ✅ IMPORTANT pour éviter l'erreur data.sql
-    show-sql: true
-
   sql:
     init:
-      mode: always # accepte le data.sql automatiquement
-
-logging:
-  level:
-    org.springframework.jdbc.datasource.init: DEBUG
-    com.medilabo.patient: DEBUG
+      mode: always   # => on garde l'exécution de data.sql à chaque démarrage

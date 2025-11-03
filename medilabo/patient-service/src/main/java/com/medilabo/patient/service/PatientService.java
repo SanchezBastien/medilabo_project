@@ -65,4 +65,11 @@ public class PatientService {
     public Patient update(Patient patient) {
         return patientRepository.save(patient);
     }
+
+    public void delete(Long id) {
+        if (!patientRepository.existsById(id)) {
+            throw new RuntimeException("Patient not found");
+        }
+        patientRepository.deleteById(id);
+    }
 }

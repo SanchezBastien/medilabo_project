@@ -81,14 +81,20 @@ public class PatientController {
      * @return the updated patient DTO
      */
     @PutMapping("/{id}")
-    public ResponseEntity<PatientDto> updatePatient(@PathVariable Long id, @Valid @RequestBody PatientDto dto) {
+    public ResponseEntity<PatientDto> updatePatient(
+            @PathVariable("id") Long id,
+            @Valid @RequestBody PatientDto dto) {
         Optional<Patient> existing = patientService.findById(id);
         if (existing.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
-        // Ensure consistency between path variable and body
         dto.setId(id);
         Patient saved = patientService.update(PatientMapper.toEntity(dto));
         return ResponseEntity.ok(PatientMapper.toDto(saved));
+    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletePatient(@PathVariable("id") Long id) {
+        patientService.delete(id);
+        return ResponseEntity.noContent().build(); // 204 No Content
     }
 }
