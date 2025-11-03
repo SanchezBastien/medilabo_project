@@ -55,4 +55,29 @@ public class NoteController {
         Note saved = noteService.save(NoteMapper.toEntity(dto));
         return new ResponseEntity<>(NoteMapper.toDto(saved), HttpStatus.CREATED);
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Note> updateNote(
+            @PathVariable("id") String id,
+            @RequestBody Note payload) {
+
+
+        if (!noteService.exists(id)) {
+            return ResponseEntity.notFound().build();
+        }
+
+        payload.setId(id);
+        Note saved = noteService.save(payload);
+        return ResponseEntity.ok(saved);
+    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteNote(@PathVariable("id") String id) {
+
+        if (!noteService.exists(id)) {
+            return ResponseEntity.notFound().build();
+        }
+
+        noteService.delete(id);
+        return ResponseEntity.noContent().build(); // 204 No Content
+    }
 }

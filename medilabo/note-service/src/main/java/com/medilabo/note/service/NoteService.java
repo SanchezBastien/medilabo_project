@@ -30,4 +30,11 @@ public class NoteService {
     public Note save(Note note) {
         return noteRepository.save(note);
     }
+
+    public boolean exists(String id) {
+        return noteRepository.existsById(id);
+    }
+    public void delete(String id) {
+        noteRepository.deleteById(id);
+    }
 }
