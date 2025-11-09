@@ -87,4 +87,21 @@ public class GatewayClient {
     public AssessmentDto getAssessment(Long patientId) {
         return restTemplate.getForObject(baseUrl + "/api/assessment/" + patientId, AssessmentDto.class);
     }
+
+    public NoteDto updateNote(String id, Long patientId, String note) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        NoteDto payload = new NoteDto();
+        payload.setId(id);
+        payload.setPatientId(patientId);
+        payload.setNote(note);
+
+        HttpEntity<NoteDto> request = new HttpEntity<>(payload, headers);
+
+        // Le note-service expose PUT /api/notes/{id}
+        return restTemplate
+                .exchange(baseUrl + "/api/notes/" + id, HttpMethod.PUT, request, NoteDto.class)
+                .getBody();
+    }
 }

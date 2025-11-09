@@ -3,6 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Détails patient</title>
+    <style>
+        .note-item{margin-bottom:10px}
+        .note-text{display:inline-block;margin-right:10px}
+        .note-edit{display:none;margin-top:6px}
+        .note-actions button{margin-right:6px}
+    </style>
 </head>
 <body>
 <h1 th:text="'Détails du patient ' + ${patient.firstName} + ' ' + ${patient.lastName}"></h1>
@@ -10,34 +16,12 @@
 
 <h2>Informations</h2>
 <form th:action="@{/patients/{id}/update(id=${patient.id})}" th:object="${patientForm}" method="post">
-    <div>
-        <label>Nom:</label>
-        <input type="text" th:field="*{lastName}"/>
-        <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></span>
-    </div>
-    <div>
-        <label>Prénom:</label>
-        <input type="text" th:field="*{firstName}"/>
-        <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></span>
-    </div>
-    <div>
-        <label>Date de naissance:</label>
-        <input type="date" th:field="*{birthDate}"/>
-        <span th:if="${#fields.hasErrors('birthDate')}" th:errors="*{birthDate}"></span>
-    </div>
-    <div>
-        <label>Sexe (M/F):</label>
-        <input type="text" th:field="*{gender}"/>
-        <span th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}"></span>
-    </div>
-    <div>
-        <label>Adresse:</label>
-        <input type="text" th:field="*{address}"/>
-    </div>
-    <div>
-        <label>Téléphone:</label>
-        <input type="text" th:field="*{phone}"/>
-    </div>
+    <div><label>Nom:</label><input type="text" th:field="*{lastName}"/></div>
+    <div><label>Prénom:</label><input type="text" th:field="*{firstName}"/></div>
+    <div><label>Date de naissance:</label><input type="date" th:field="*{birthDate}"/></div>
+    <div><label>Sexe (M/F):</label><input type="text" th:field="*{gender}"/></div>
+    <div><label>Adresse:</label><input type="text" th:field="*{address}"/></div>
+    <div><label>Téléphone:</label><input type="text" th:field="*{phone}"/></div>
     <button type="submit">Mettre à jour</button>
 </form>
 
@@ -52,12 +36,36 @@
 </div>
 
 <h2>Notes</h2>
-<ul>
-    <li th:each="note : ${notes}" th:text="${note.note}"></li>
-</ul>
+
+<!-- Liste + édition inline -->
+<div th:if="${notes != null and !notes.isEmpty()}">
+    <div th:each="n : ${notes}" class="note-item" th:attr="data-id=${n.id}">
+        <span class="note-text" th:text="${n.note}"></span>
+        <span class="note-actions">
+      <button type="button" th:attr="data-target=${'edit-'+n.id}" onclick="toggleEdit(this)">Modifier</button>
+    </span>
+
+        <!-- Formulaire d’édition caché par défaut -->
+        <form class="note-edit"
+              th:id="${'edit-'+n.id}"
+              th:action="@{/patients/{id}/notes/{noteId}/update(id=${patient.id}, noteId=${n.id})}"
+              method="post">
+            <input type="hidden" name="patientId" th:value="${patient.id}">
+            <textarea name="note" rows="3" cols="60" th:text="${n.note}"></textarea>
+            <div>
+                <button type="submit">Enregistrer</button>
+                <button type="button" onclick="toggleEdit(this)" data-cancel>Annuler</button>
+            </div>
+        </form>
+    </div>
+</div>
+<div th:if="${notes == null or notes.isEmpty()}">
+    <p>Aucune note pour l’instant.</p>
+</div>
 
 <h3>Ajouter une note</h3>
 <form th:action="@{/patients/{id}/notes(id=${patient.id})}" th:object="${noteForm}" method="post">
+    <input type="hidden" th:field="*{patientId}" th:value="${patient.id}" />
     <div>
         <textarea th:field="*{note}" rows="4" cols="50"></textarea>
         <span th:if="${#fields.hasErrors('note')}" th:errors="*{note}"></span>
@@ -66,5 +74,13 @@
         <button type="submit">Enregistrer la note</button>
     </div>
 </form>
+
+<script>
+    function toggleEdit(btn){
+      const id = btn.getAttribute('data-target') || btn.closest('.note-item').querySelector('.note-edit').id;
+      const form = document.getElementById(id);
+      form.style.display = form.style.display === 'block' ? 'none' : 'block';
+    }
+</script>
 </body>
 </html>

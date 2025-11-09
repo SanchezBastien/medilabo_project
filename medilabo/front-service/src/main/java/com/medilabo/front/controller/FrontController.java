@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -117,6 +118,29 @@ public class FrontController {
         }
         form.setPatientId(id);
         client.createNote(form);
+        return "redirect:/patients/" + id;
+    }
+
+    @PostMapping("/patients/{id}/notes/{noteId}/update")
+    public String updateNote(@PathVariable("id") Long id,
+                             @PathVariable("noteId") String noteId,
+                             @RequestParam("patientId") Long patientId,
+                             @RequestParam("note") String note,
+                             RedirectAttributes ra) {
+
+        if (!id.equals(patientId)) {
+            ra.addFlashAttribute("error", "Patient invalide pour la note.");
+            return "redirect:/patients/" + id;
+        }
+        if (note == null || note.isBlank()) {
+            ra.addFlashAttribute("error", "La note ne peut pas être vide.");
+            return "redirect:/patients/" + id;
+        }
+
+        // effectuer la mise à jour côté backend
+        client.updateNote(noteId, id, note);
+
+        ra.addFlashAttribute("success", "Note mise à jour.");
         return "redirect:/patients/" + id;
     }
 }
