@@ -1,0 +1,13 @@
+com\medilabo\front\controller\FrontController.class
+com\medilabo\front\model\RiskLevel.class
+com\medilabo\front\dto\NoteDto.class
+com\medilabo\front\config\SecurityConfig.class
+com\medilabo\front\client\GatewayClient$2.class
+com\medilabo\front\form\NoteForm.class
+com\medilabo\front\FrontServiceApplication.class
+com\medilabo\front\form\PatientForm.class
+com\medilabo\front\client\GatewayClient$1.class
+com\medilabo\front\client\GatewayClient.class
+com\medilabo\front\dto\PatientDto.class
+com\medilabo\front\dto\AssessmentDto.class
+com\medilabo\front\config\RestTemplateConfig.class

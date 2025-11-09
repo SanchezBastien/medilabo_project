@@ -64,7 +64,7 @@ public class FrontController {
      * Display details for a single patient including notes and risk.
      */
     @GetMapping("/patients/{id}")
-    public String viewPatient(@PathVariable Long id, Model model) {
+    public String viewPatient(@PathVariable("id") Long id, Model model) {
         PatientDto patient = client.getPatient(id);
         if (patient == null) {
             return "redirect:/patients";
@@ -95,7 +95,7 @@ public class FrontController {
      * Handle update of patient information from the detail page.
      */
     @PostMapping("/patients/{id}/update")
-    public String updatePatient(@PathVariable Long id,
+    public String updatePatient(@PathVariable("id") Long id,
                                 @Valid @ModelAttribute("patientForm") PatientForm form,
                                 BindingResult result) {
         if (result.hasErrors()) {
@@ -109,7 +109,7 @@ public class FrontController {
      * Handle creation of a new note for a patient.
      */
     @PostMapping("/patients/{id}/notes")
-    public String addNote(@PathVariable Long id,
+    public String addNote(@PathVariable("id") Long id,
                           @Valid @ModelAttribute("noteForm") NoteForm form,
                           BindingResult result) {
         if (result.hasErrors()) {
