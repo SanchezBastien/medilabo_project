@@ -92,17 +92,28 @@ public class FrontController {
         return "patient-detail";
     }
 
-    /**
-     * Handle update of patient information from the detail page.
-     */
     @PostMapping("/patients/{id}/update")
     public String updatePatient(@PathVariable("id") Long id,
                                 @Valid @ModelAttribute("patientForm") PatientForm form,
-                                BindingResult result) {
+                                BindingResult result,
+                                Model model,
+                                RedirectAttributes ra) {
         if (result.hasErrors()) {
+            // Recharger tout ce que le template patient-detail utilise
+            PatientDto patient = client.getPatient(id);
+            model.addAttribute("patient", patient);
+            model.addAttribute("assessment", client.getAssessment(id));
+            model.addAttribute("notes", client.getNotes(id));
+
+            NoteForm noteForm = new NoteForm();
+            noteForm.setPatientId(id);
+            model.addAttribute("noteForm", noteForm);
+
             return "patient-detail";
         }
+
         client.updatePatient(id, form);
+        ra.addFlashAttribute("success", "Patient mis à jour.");
         return "redirect:/patients/" + id;
     }
 
@@ -137,10 +148,23 @@ public class FrontController {
             return "redirect:/patients/" + id;
         }
 
-        // effectuer la mise à jour côté backend
+        // ✅ effectuer la mise à jour côté backend
         client.updateNote(noteId, id, note);
 
         ra.addFlashAttribute("success", "Note mise à jour.");
+        return "redirect:/patients/" + id;
+    }
+
+    @PostMapping("/patients/{id}/notes/{noteId}/delete")
+    public String deleteNote(@PathVariable("id") Long id,
+                             @PathVariable("noteId") String noteId,
+                             RedirectAttributes ra) {
+        try {
+            client.deleteNote(noteId);
+            ra.addFlashAttribute("success", "Note supprimée.");
+        } catch (Exception e) {
+            ra.addFlashAttribute("error", "Suppression impossible : " + e.getMessage());
+        }
         return "redirect:/patients/" + id;
     }
 }

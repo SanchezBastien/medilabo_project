@@ -8,6 +8,7 @@
         .note-text{display:inline-block;margin-right:10px}
         .note-edit{display:none;margin-top:6px}
         .note-actions button{margin-right:6px}
+        .note-actions form{display:inline}
     </style>
 </head>
 <body>
@@ -41,9 +42,16 @@
 <div th:if="${notes != null and !notes.isEmpty()}">
     <div th:each="n : ${notes}" class="note-item" th:attr="data-id=${n.id}">
         <span class="note-text" th:text="${n.note}"></span>
+
         <span class="note-actions">
-      <button type="button" th:attr="data-target=${'edit-'+n.id}" onclick="toggleEdit(this)">Modifier</button>
-    </span>
+            <!-- Modifier (affiche/masque le formulaire d’édition) -->
+            <button type="button" th:attr="data-target=${'edit-'+n.id}" onclick="toggleEdit(this)">Modifier</button>
+
+            <!-- Supprimer -->
+            <form th:action="@{|/patients/${patient.id}/notes/${n.id}/delete|}" method="post">
+                <button type="submit" onclick="return confirm('Supprimer cette note ?');">Supprimer</button>
+            </form>
+        </span>
 
         <!-- Formulaire d’édition caché par défaut -->
         <form class="note-edit"

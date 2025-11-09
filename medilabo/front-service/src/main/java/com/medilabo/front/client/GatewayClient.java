@@ -104,4 +104,12 @@ public class GatewayClient {
                 .exchange(baseUrl + "/api/notes/" + id, HttpMethod.PUT, request, NoteDto.class)
                 .getBody();
     }
+
+    public void deleteNote(String id) {
+        try {
+            restTemplate.delete(baseUrl + "/api/notes/" + id); // note-service: DELETE /api/notes/{id}
+        } catch (RestClientException ex) {
+            throw ex; // on laissera le Controller afficher un message
+        }
+    }
 }

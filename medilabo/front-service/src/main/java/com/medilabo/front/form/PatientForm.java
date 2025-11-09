@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Pattern;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 
@@ -23,10 +24,12 @@ public class PatientForm {
 
     @NotNull(message = "Date de naissance obligatoire")
     @Past(message = "La date de naissance doit être dans le passé")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) // <-- important pour <input type="date">
     private LocalDate birthDate;
 
     @NotBlank(message = "Sexe obligatoire (M ou F)")
-    @Pattern(regexp = "[MF]", message = "Sexe doit être 'M' ou 'F'")
+    @Pattern(regexp = "[MF]", flags = Pattern.Flag.CASE_INSENSITIVE,
+            message = "Sexe doit être 'M' ou 'F'")
     private String gender;
 
     private String address;
