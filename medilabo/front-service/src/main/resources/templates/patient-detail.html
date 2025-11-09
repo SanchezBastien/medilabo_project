@@ -9,11 +9,21 @@
         .note-edit{display:none;margin-top:6px}
         .note-actions button{margin-right:6px}
         .note-actions form{display:inline}
+        .toolbar{margin-bottom:10px}
+        .toolbar form{display:inline}
+        .toolbar a, .toolbar button{margin-right:8px}
     </style>
 </head>
 <body>
 <h1 th:text="'Détails du patient ' + ${patient.firstName} + ' ' + ${patient.lastName}"></h1>
-<p><a th:href="@{/patients}">Retour à la liste</a></p>
+
+<div class="toolbar">
+    <a th:href="@{/patients}">Retour à la liste</a>
+    <form th:action="@{/patients/{id}/delete(id=${patient.id})}" method="post" style="display:inline"
+          onsubmit="return confirm('Supprimer ce patient et revenir à la liste ?');">
+        <button type="submit">Supprimer le patient</button>
+    </form>
+</div>
 
 <h2>Informations</h2>
 <form th:action="@{/patients/{id}/update(id=${patient.id})}" th:object="${patientForm}" method="post">

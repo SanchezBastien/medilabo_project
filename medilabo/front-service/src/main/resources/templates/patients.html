@@ -7,7 +7,9 @@
 </head>
 <body>
 <h1>Patients</h1>
+
 <p><a th:href="@{/patients/new}">Ajouter un patient</a></p>
+
 <table border="1" cellspacing="0" cellpadding="5">
     <thead>
     <tr>
@@ -15,7 +17,7 @@
         <th>Prénom</th>
         <th>Date de naissance</th>
         <th>Sexe</th>
-        <th></th>
+        <th>Actions</th>
     </tr>
     </thead>
     <tbody>
@@ -24,7 +26,14 @@
         <td th:text="${patient.firstName}"></td>
         <td th:text="${patient.birthDate}"></td>
         <td th:text="${patient.gender}"></td>
-        <td><a th:href="@{/patients/{id}(id=${patient.id})}">Détails</a></td>
+        <td>
+            <a th:href="@{/patients/{id}(id=${patient.id})}">Détails</a>
+            &nbsp;|&nbsp;
+            <form th:action="@{/patients/{id}/delete(id=${patient.id})}" method="post" style="display:inline"
+                  onsubmit="return confirm('Supprimer ce patient ?');">
+                <button type="submit">Supprimer</button>
+            </form>
+        </td>
     </tr>
     </tbody>
 </table>

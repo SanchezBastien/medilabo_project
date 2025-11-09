@@ -112,4 +112,12 @@ public class GatewayClient {
             throw ex; // on laissera le Controller afficher un message
         }
     }
+    public void deletePatient(Long id) {
+        try {
+            restTemplate.delete(baseUrl + "/api/patients/" + id); // gateway -> patient-service
+        } catch (RestClientException ex) {
+            throw ex;
+        }
+    }
+
 }

@@ -167,4 +167,16 @@ public class FrontController {
         }
         return "redirect:/patients/" + id;
     }
+    @PostMapping("/patients/{id}/delete")
+    public String deletePatient(@PathVariable("id") Long id, RedirectAttributes ra) {
+        try {
+            client.deletePatient(id);
+            ra.addFlashAttribute("success", "Patient supprimé.");
+            return "redirect:/patients";
+        } catch (Exception e) {
+            ra.addFlashAttribute("error", "Suppression impossible : " + e.getMessage());
+            return "redirect:/patients/" + id;
+        }
+    }
+
 }
