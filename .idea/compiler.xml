@@ -17,6 +17,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="front-service" options="-parameters" />
       <module name="risk-service" options="-parameters" />
     </option>
   </component>
