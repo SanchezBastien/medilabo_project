@@ -6,7 +6,8 @@ spring:
     name: note-service
   data:
     mongodb:
-      uri: mongodb+srv://sanchezbastien34_db_user:c5pS121OBQ243JdH@cluster0.vig3taf.mongodb.net/notesdb?retryWrites=true&w=majority&appName=Cluster0
+      # valeur par défaut pour le dev local
+      uri: ${SPRING_DATA_MONGODB_URI:mongodb://localhost:27017/notesdb}
 
 logging:
   level:

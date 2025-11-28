@@ -10,10 +10,10 @@ spring:
 
 patient:
   service:
-    url: http://localhost:8081
+    url: http://patient-service:8081
 note:
   service:
-    url: http://localhost:8082
+    url: http://note-service:8082
 
 # Feign + logs
 logging:

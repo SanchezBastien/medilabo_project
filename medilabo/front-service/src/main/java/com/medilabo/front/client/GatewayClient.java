@@ -6,6 +6,7 @@ import com.medilabo.front.dto.PatientDto;
 import com.medilabo.front.form.NoteForm;
 import com.medilabo.front.form.PatientForm;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -25,11 +26,16 @@ import java.util.List;
 @Service
 public class GatewayClient {
     private final RestTemplate restTemplate;
-    private final String baseUrl = "http://localhost:8080";
+    private final String baseUrl;
 
-    public GatewayClient(RestTemplate restTemplate) {
+    public GatewayClient(
+            RestTemplate restTemplate,
+            @Value("${gateway.base-url:http://localhost:8080}") String baseUrl
+    ) {
         this.restTemplate = restTemplate;
+        this.baseUrl = baseUrl;
     }
+
 
     public List<PatientDto> getPatients() {
         try {
@@ -46,7 +52,14 @@ public class GatewayClient {
     }
 
     public PatientDto getPatient(Long id) {
-        return restTemplate.getForObject(baseUrl + "/api/patients/" + id, PatientDto.class);
+        try {
+            return restTemplate.getForObject(
+                    baseUrl + "/api/patients/" + id,
+                    PatientDto.class
+            );
+        } catch (RestClientException e) {
+            return null;
+        }
     }
 
     public PatientDto createPatient(@Valid PatientForm form) {
@@ -84,8 +97,15 @@ public class GatewayClient {
         return restTemplate.postForObject(baseUrl + "/api/notes", request, NoteDto.class);
     }
 
-    public AssessmentDto getAssessment(Long patientId) {
-        return restTemplate.getForObject(baseUrl + "/api/assessment/" + patientId, AssessmentDto.class);
+    public AssessmentDto getAssessment(Long id) {
+        try {
+            return restTemplate.getForObject(
+                    baseUrl + "/api/assessment/" + id,
+                    AssessmentDto.class
+            );
+        } catch (RestClientException e) {
+            return null;
+        }
     }
 
     public NoteDto updateNote(String id, Long patientId, String note) {
