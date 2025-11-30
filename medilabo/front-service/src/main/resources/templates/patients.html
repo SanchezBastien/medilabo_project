@@ -6,36 +6,82 @@
     <link rel="stylesheet" th:href="@{/css/style.css}"/>
 </head>
 <body>
-<h1>Patients</h1>
 
-<p><a th:href="@{/patients/new}">Ajouter un patient</a></p>
+<header class="app-header">
+    <div class="app-header-inner">
+        <div>
+            <div class="app-header-title">
+                <a th:href="@{/patients}">Medilabo</a>
+            </div>
+            <div class="app-header-sub">Gestion des patients et évaluations</div>
+        </div>
+        <nav class="app-header-nav">
+            <a th:href="@{/patients}">Patients</a>
+        </nav>
+    </div>
+</header>
 
-<table border="1" cellspacing="0" cellpadding="5">
-    <thead>
-    <tr>
-        <th>Nom</th>
-        <th>Prénom</th>
-        <th>Date de naissance</th>
-        <th>Sexe</th>
-        <th>Actions</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="patient : ${patients}">
-        <td th:text="${patient.lastName}"></td>
-        <td th:text="${patient.firstName}"></td>
-        <td th:text="${patient.birthDate}"></td>
-        <td th:text="${patient.gender}"></td>
-        <td>
-            <a th:href="@{/patients/{id}(id=${patient.id})}">Détails</a>
-            &nbsp;|&nbsp;
-            <form th:action="@{/patients/{id}/delete(id=${patient.id})}" method="post" style="display:inline"
-                  onsubmit="return confirm('Supprimer ce patient ?');">
-                <button type="submit">Supprimer</button>
-            </form>
-        </td>
-    </tr>
-    </tbody>
-</table>
+<main class="container">
+    <div class="page-header">
+        <div>
+            <h1 class="page-title">Patients</h1>
+            <p class="page-subtitle">Consulte, crée ou supprime des patients.</p>
+        </div>
+        <div class="toolbar">
+            <a th:href="@{/patients/new}" class="btn btn-primary">Ajouter un patient</a>
+        </div>
+    </div>
+
+    <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
+    <div th:if="${error}" class="alert alert-error" th:text="${error}"></div>
+
+    <section class="card">
+        <div class="card-header">
+            <h2 class="card-title">Liste des patients</h2>
+            <span class="card-badge" th:text="${#lists.size(patients)} + ' patient(s)'">0 patient</span>
+        </div>
+
+        <div class="table-wrapper" th:if="${patients != null and !patients.isEmpty()}">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>Date de naissance</th>
+                    <th>Sexe</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="patient : ${patients}">
+                    <td th:text="${patient.lastName}"></td>
+                    <td th:text="${patient.firstName}"></td>
+                    <td th:text="${patient.birthDate}"></td>
+                    <td th:text="${patient.gender}"></td>
+                    <td>
+                        <div class="table-actions">
+                            <a th:href="@{/patients/{id}(id=${patient.id})}"
+                               class="btn btn-sm btn-secondary">Détails</a>
+
+                            <form th:action="@{/patients/{id}/delete(id=${patient.id})}"
+                                  method="post"
+                                  onsubmit="return confirm('Supprimer ce patient ?');">
+                                <button type="submit" class="btn btn-sm btn-danger">
+                                    Supprimer
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <p th:if="${patients == null or patients.isEmpty()}" class="text-muted">
+            Aucun patient pour le moment. Utilise le bouton « Ajouter un patient » pour créer le premier.
+        </p>
+    </section>
+</main>
+
 </body>
 </html>
